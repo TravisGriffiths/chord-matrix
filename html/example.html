@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Bar Chart</title>
+
+    <!-- Import the barchart style sheet -->
+    <link rel="stylesheet" type="text/css" href="../css/barchart.css">
+
+    <!-- Need to import jQuery -->
+    <script type="text/javascript" src="../javascript/jquery-1.8.3.min.js"></script>
+
+    <!-- Need to import the D3 library -->
+    <script type="text/javascript" src="../javascript/d3.v2.min.js"></script>
+
+    <!-- Import the chart -->
+    <script type="text/javascript" src="../javascript/bar-chart.js"></script>
+
+</head>
+<body>
+
+<script type="text/javascript">
+    jQuery(function () {
+        m = new matrix();
+        m.makeChart(chart_data);
+        sel = new selectwidget(chart_data);
+        sel.setChart(bar);
+        sel.draw("#select_target");
+
+    });
+
+</script>
+
+<div id="bar-chart-target"></div>
+<p>
+    <h3>Choose a District: </h3>
+</p>
+<div id="select_target"></div>
+
+
+</body>
+</html>

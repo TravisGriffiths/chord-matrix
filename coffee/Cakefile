@@ -1,0 +1,18 @@
+#For compiling all coffeescript
+fs = require 'fs'
+{exec} = require 'child_process'
+
+build_app = (callback) ->
+  exec 'coffee --compile --output  ../javascript/ .', (err, stdout, stderr) ->
+    if err
+      throw err
+      console.log stdout + stderr
+    else
+      if stderr then console.log stdout + stderr else console.log 'Compiled Drop Chart'
+
+task 'all', 'Compiles all scripts', ->
+  console.log 'Compiling Everything'
+  build_app()
+  exec "( find ./ -name '*.coffee' -print0 | xargs -0 cat ) | wc -l", (err, stdout, stderr) ->
+    stdout = stdout.replace /^\s+|\s+$/g, ""
+    console.log "Currently " + stdout + " lines of coffeescript in this application."
