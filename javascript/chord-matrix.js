@@ -6,13 +6,22 @@
 
     function Matrix() {}
 
-    Matrix.prototype.makeChart = function(data) {
+    Matrix.prototype.parse = function() {
+      debugger;
+    };
+
+    Matrix.prototype.draw = function(data) {
       var table;
-      jQuery("table.bar_chart").remove();
+      this.data = data;
+      this.parse();
+      jQuery("table.matrix").remove();
       jQuery("div#browser_update_notice").remove();
-      table = d3.select("#bar-chart-target").append("table").classed("bar_chart", true);
-      table.append("tr").html("<th class='table_title'>" + this.data.Dist + " Achievement Gap</th><th class='table_title'>%</th>");
-      return table.selectAll("tr.ach").data(data).enter().append("tr").attr("id", function(d, i) {
+      table = d3.select("#bar-chart-target").append("table").classed("matrix", true);
+      table.append("tr").html(function(data) {
+        this.data = data;
+        debugger;
+      });
+      return table.selectAll("tr.ach").data(this.data).enter().append("tr").attr("id", function(d, i) {
         return "bar_rect_" + i;
       }).classed("town_datum", function(d, i) {
         return !Boolean(i % 2);
