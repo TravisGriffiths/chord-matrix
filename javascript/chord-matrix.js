@@ -72,8 +72,9 @@
       });
     };
 
-    Matrix.prototype.draw = function() {
+    Matrix.prototype.draw = function(data) {
       var a, c, cell, getColor, h, i, labeled_matrix, labels, local_max, r0, r1, rank, rankArray, raw, right_of_zero, row, table, w, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
+      this.data = data;
       raw = this.raw;
       $(this.target).children('svg').remove();
       w = this.fullWidth;
@@ -86,6 +87,7 @@
       r1 = r0 * 1.1;
       c = utilities.counter(0);
       local_max = [];
+      debugger;
       _ref1 = this.data;
       for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
         a = _ref1[_i];

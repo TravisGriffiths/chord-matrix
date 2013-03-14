@@ -67,7 +67,7 @@ class Matrix
       .attr("text-anchor", "end")
       .text((d, i) -> utilities.toHumanInt(d.value))
 
-  draw: ->
+  draw: (@data) ->
     raw = @raw
     $(@target).children('svg').remove() #If this is a redraw, we need to start fresh
     w = @fullWidth
@@ -82,6 +82,7 @@ class Matrix
 
     #Get the max color
     local_max = []
+    debugger
     local_max.push(d3.max(a)) for a in @data
     getColor = (value) -> d3.interpolateRgb("#FFF", "#009700")(value/d3.max(local_max)).toString()
     rankArray = _.uniq(_.flatten(@data)).sort((a, b) -> a - b).reverse()
