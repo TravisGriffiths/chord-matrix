@@ -67,7 +67,7 @@ class Matrix
       .attr("text-anchor", "end")
       .text((d, i) -> utilities.toHumanInt(d.value))
 
-  plot: ->
+  draw: ->
     raw = @raw
     $(@target).children('svg').remove() #If this is a redraw, we need to start fresh
     w = @fullWidth

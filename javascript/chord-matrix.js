@@ -72,7 +72,7 @@
       });
     };
 
-    Matrix.prototype.plot = function() {
+    Matrix.prototype.draw = function() {
       var a, c, cell, fill, getColor, grey, h, i, labeled_matrix, labels, local_max, r0, r1, rank, rankArray, raw, right_of_zero, row, table, w, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
       raw = this.raw;
       $(this.target).children('svg').remove();

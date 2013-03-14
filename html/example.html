@@ -12,9 +12,6 @@
     <!-- Need to import the D3 library -->
     <script type="text/javascript" src="../javascript/d3.v2.min.js"></script>
 
-    <!-- Import NVD3 -->
-    <script type="text/javascript" src="../javascript/nv.d3.min.js"></script>
-
     <!-- Import the chart -->
     <script type="text/javascript" src="../javascript/chord-matrix.js"></script>
 
@@ -24,9 +21,9 @@
 <script type="text/javascript">
     jQuery(function () {
         m = new matrix();
-        m.setData(chart_data);
-        m.setTarget("#matrix_target")
-        m.draw();
+        m.setTitle("Chord Matrix Example");
+        m.setTarget("#matrix_target");
+        m.draw(chart_data);
     });
 </script>
 
