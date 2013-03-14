@@ -14,6 +14,10 @@
       this.target = target;
     };
 
+    Matrix.prototype.setLabels = function(labels) {
+      this.labels = labels;
+    };
+
     Matrix.prototype.makeHistogram = function(data) {
       var a, barspace, barwidth, chart, hist_data, i, leftmargin, local_max, max, value, _i, _j, _k, _len, _len1, _ref, _ref1, _ref2, _ref3;
       jQuery('div.segmentInfo svg').remove();
@@ -28,7 +32,7 @@
       }
       hist_data = [];
       local_max = [];
-      _ref2 = this.data.data;
+      _ref2 = this.data;
       for (_j = 0, _len = _ref2.length; _j < _len; _j++) {
         a = _ref2[_j];
         local_max.push(d3.max(a));
@@ -73,7 +77,7 @@
     };
 
     Matrix.prototype.draw = function(data) {
-      var a, c, cell, getColor, h, i, labeled_matrix, labels, local_max, r0, r1, rank, rankArray, raw, right_of_zero, row, table, w, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
+      var a, c, cell, getColor, h, i, labeled_matrix, local_max, r0, r1, rank, rankArray, raw, right_of_zero, row, table, w, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
       this.data = data;
       raw = this.raw;
       $(this.target).children('svg').remove();
@@ -87,7 +91,6 @@
       r1 = r0 * 1.1;
       c = utilities.counter(0);
       local_max = [];
-      debugger;
       _ref1 = this.data;
       for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
         a = _ref1[_i];
@@ -110,16 +113,14 @@
         return;
       }
       table = d3.select(this.target).append("table").classed("matrix", true);
-      labels = _.clone(this.data.groups);
-      labels.unshift(" ");
       labeled_matrix = [];
       right_of_zero = false;
-      _ref2 = this.data.data;
+      _ref2 = this.data;
       for (i = _j = 0, _len1 = _ref2.length; _j < _len1; i = ++_j) {
         row = _ref2[i];
         labeled_matrix.push([
           {
-            'value': this.data.groups[i],
+            'value': this.labels[i],
             'color': null,
             'index': i
           }
@@ -169,7 +170,7 @@
           return String(d.value);
         }
       });
-      return table.append("tr").selectAll('td.xaxis').data(labels).enter().append("td").classed("xaxis left", true).html(function(d) {
+      return table.append("tr").selectAll('td.xaxis').data(this.labels).enter().append("td").classed("xaxis left", true).html(function(d) {
         return d;
       });
     };

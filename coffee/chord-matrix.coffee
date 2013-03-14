@@ -4,6 +4,8 @@ class Matrix
 
   setTarget: (@target) ->
 
+  setLabels: (@labels) ->
+
   makeHistogram: (data) ->
     jQuery('div.segmentInfo svg').remove()
     jQuery('tr.value').attr('style', false)
@@ -16,7 +18,7 @@ class Matrix
       $($($('table.matrix tr')[i + 1]).find('td.left')[data[0].index + 1]).addClass('highlight')
     hist_data = []
     local_max = []
-    local_max.push(d3.max(a)) for a in @data.data
+    local_max.push(d3.max(a)) for a in @data
     max = d3.max(local_max)
     for value, i in data[1..]
       if value.value
@@ -82,7 +84,6 @@ class Matrix
 
     #Get the max color
     local_max = []
-    debugger
     local_max.push(d3.max(a)) for a in @data
     getColor = (value) -> d3.interpolateRgb("#FFF", "#009700")(value/d3.max(local_max)).toString()
     rankArray = _.uniq(_.flatten(@data)).sort((a, b) -> a - b).reverse()
@@ -98,14 +99,11 @@ class Matrix
       .append("table")
       .classed("matrix", true)
 
-    labels = _.clone(@data.groups)
-    labels.unshift(" ")
-
     labeled_matrix = []
     right_of_zero = false
 
-    for row, i in @data.data
-      labeled_matrix.push([{'value': @data.groups[i], 'color': null, 'index': i}])
+    for row, i in @data
+      labeled_matrix.push([{'value': @labels[i], 'color': null, 'index': i}])
       right_of_zero = false
       for cell in row
         right_of_zero = true if cell == 0
@@ -148,7 +146,7 @@ class Matrix
                String(d.value)
       )
 
-    table.append("tr").selectAll('td.xaxis').data(labels).enter()
+    table.append("tr").selectAll('td.xaxis').data(@labels).enter()
       .append("td").classed("xaxis left", true)
       .html( (d) ->
              d
