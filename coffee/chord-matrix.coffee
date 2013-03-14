@@ -78,8 +78,6 @@ class Matrix
 
     r0 = Math.min(w, h) * 0.29
     r1 = r0 * 1.1
-    fill = paletteFactory.getPalette('warm')  #d3.scale.category20c()
-    grey = paletteFactory.getPalette('greyscale')
     c = utilities.counter(0)
 
     #Get the max color
