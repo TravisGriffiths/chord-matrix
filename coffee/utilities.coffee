@@ -219,10 +219,10 @@ getAxisScale = (axis) ->
   log_scale = d3.scale.log()
   line_map = _.map(axis, (point) ->
     line_scale(point)
-                  )
+  )
   log_map = _.map(axis, (point) ->
     log_scale(point)
-                 )
+  )
   # English: Use the scale for which the Standard Diviation of the distance
   # between points is the least, i.e. most even distribution of points.
   if getSD(getSpaces(line_map)) > getSD(getSpaces(log_map)) then "log" else "linear"

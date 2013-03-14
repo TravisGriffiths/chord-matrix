@@ -82,9 +82,9 @@ class Matrix
 
     #Get the max color
     local_max = []
-    local_max.push(d3.max(a)) for a in @data.data
+    local_max.push(d3.max(a)) for a in @data
     getColor = (value) -> d3.interpolateRgb("#FFF", "#009700")(value/d3.max(local_max)).toString()
-    rankArray = _.uniq(_.flatten(@data.data)).sort((a, b) -> a - b).reverse()
+    rankArray = _.uniq(_.flatten(@data)).sort((a, b) -> a - b).reverse()
     rank = (value) ->
       return 0 if value == 0
       (_.indexOf(rankArray, value) + 1)
