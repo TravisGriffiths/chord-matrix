@@ -2,6 +2,8 @@ class Matrix
 
   setTitle: (@title) ->
 
+  setTarget: (@target) ->
+
   makeHistogram: (data) ->
     jQuery('div.segmentInfo svg').remove()
     jQuery('tr.value').attr('style', false)
@@ -66,20 +68,8 @@ class Matrix
       .text((d, i) -> utilities.toHumanInt(d.value))
 
   plot: ->
-    @model.datumHighlighter.start()
-    highlight_event = "datumHighlighter:activate:" + utilities.getUniqueID()
-    dispatcher.on(highlight_event, @highlight, @)
-    @model.datumHighlighter.setHighlightTemplate(@attributes.highlightTemplate)
-    @model.datumHighlighter.setFormatObject(@attributes.highlightFormat)
-    @chord = d3.layout.chord()
-      .padding(0.02)
-      .sortSubgroups(d3.descending)
-      .matrix(@data.data)
-
     raw = @raw
-
-    target = _.first $(@el).children()
-    $(target).children('svg').remove() #If this is a redraw, we need to start fresh
+    $(@target).children('svg').remove() #If this is a redraw, we need to start fresh
     w = @fullWidth
     if w > 900
       [h, w] = [900, 900]
@@ -105,7 +95,7 @@ class Matrix
     # Draw The Matrix:
     jQuery('table.matrix').remove()
     return if jQuery('table.matrix').length
-    table = d3.select(target)
+    table = d3.select(@target)
       .append("table")
       .classed("matrix", true)
 
@@ -130,13 +120,14 @@ class Matrix
       .on('mouseover', (d) ->
            d3.select(@).classed('highlight', true)
            dispatcher.trigger("histogram:request", d)
-         )
+      )
       .on('mouseout', (d) ->
            d3.select(@).classed('highlight', false)
-         )
+      )
       .attr("id", (d, i) ->
              "matrix_#{i}"
-           ).selectAll('td')
+      )
+      .selectAll('td')
       .data((d) -> d)
       .enter()
       .append('td')
@@ -164,8 +155,10 @@ class Matrix
              d
            )
 
-
 window.matrix = Matrix
+
+#This is random test data. Note that for this test data we are assuming we have a data set where given states are
+#not self-referencing (i.e. A never implies A).
 window.chart_data = JSON.parse("""[
                                [0,1012, 1967, 2918, 1684, 1016, 1744, 973, 2318],
                                [1012, 0, 1192, 1688, 1000, 603, 1128, 526, 1338],

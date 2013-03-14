@@ -24,7 +24,9 @@
 <script type="text/javascript">
     jQuery(function () {
         m = new matrix();
-        m.draw(chart_data);
+        m.setData(chart_data);
+        m.setTarget("#matrix_target")
+        m.draw();
     });
 </script>
 
