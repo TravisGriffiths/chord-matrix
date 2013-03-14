@@ -139,7 +139,7 @@
           });
         }
       }
-      return table.selectAll("tr.value").data(labeled_matrix).enter().append("tr").classed("value tableRow", true).on('mouseover', function(d) {
+      table.selectAll("tr.value").data(labeled_matrix).enter().append("tr").classed("value tableRow", true).on('mouseover', function(d) {
         d3.select(this).classed('highlight', true);
         return dispatcher.trigger("histogram:request", d);
       }).on('mouseout', function(d) {
@@ -169,11 +169,10 @@
           return String(d.value);
         }
       });
+      return table.append("tr").selectAll('td.xaxis').data(labels).enter().append("td").classed("xaxis left", true).html(function(d) {
+        return d;
+      });
     };
-
-    table.append("tr").selectAll('td.xaxis').data(labels).enter().append("td").classed("xaxis left", true).html(function(d) {
-      return d;
-    });
 
     return Matrix;
 

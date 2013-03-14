@@ -138,7 +138,7 @@ class Matrix
                 d.color
               else
                 'none'
-            )
+      )
       .text((d) ->
              if _.isNumber(d.value)
                if d.rank == 0
@@ -147,13 +147,13 @@ class Matrix
                  String(d.rank)
              else
                String(d.value)
-           )
+      )
 
     table.append("tr").selectAll('td.xaxis').data(labels).enter()
       .append("td").classed("xaxis left", true)
       .html( (d) ->
              d
-           )
+      )
 
 window.matrix = Matrix
 
